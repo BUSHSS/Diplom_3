@@ -1,4 +1,3 @@
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
@@ -12,18 +11,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class TestConstructor {
+    private static final String homePageLink = "https://stellarburgers.nomoreparties.site/";
     private WebDriver driver;
     private HomePage objHomePage;
-    private static final String homePageLink = "https://stellarburgers.nomoreparties.site/";
 
     @Before
     public void initialize() {
-        // драйвер для браузера Chrome
-        driver = new ChromeDriver();
-        // переход на страницу тестового приложения
-        driver.get("https://stellarburgers.nomoreparties.site/register");
-        WebDriverManager.chromedriver().setup();
-
+        System.setProperty("webdriver.gecko.driver", "C:/Program Files/Git/geckodriver/geckodriver.exe");
+        driver = new FirefoxDriver();
         driver.get(homePageLink);
         objHomePage = new HomePage(driver);
         objHomePage.waitEnterHomeButton();
@@ -37,16 +32,19 @@ public class TestConstructor {
         ingredientTest(objHomePage);
         breadTest(objHomePage);
     }
+
     @Step("переход к разделу Булки")
     public void breadTest(HomePage objHomePage) {
         objHomePage.clickBreadConstruction();
         Assert.assertEquals("Булки", objHomePage.waitBread());
     }
+
     @Step("переход к разделу Соусы")
     public void souseTest(HomePage objHomePage) {
         objHomePage.clickSouseConstruction();
         Assert.assertEquals("Соусы", objHomePage.waitSouse());
     }
+
     @Step("переход к разделу Начинки")
     public void ingredientTest(HomePage objHomePage) {
         objHomePage.clickIngredientConstruction();

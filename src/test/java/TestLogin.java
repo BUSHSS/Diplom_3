@@ -6,17 +6,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class TestLogin {
 
-    private WebDriver driver;
     private static final String email = "6539@yandex.ru";
     private static final String password = "qwerty";
     private static final String homePageLink = "https://stellarburgers.nomoreparties.site/";
     private static final String RegisterPageLink = "https://stellarburgers.nomoreparties.site/register";
     private static final String ForgotPasswordPageLink = "https://stellarburgers.nomoreparties.site/forgot-password";
+    private WebDriver driver;
     private HomePage objHomePage;
     private LoginPage objLoginPage;
 
@@ -24,10 +23,7 @@ public class TestLogin {
     public void initialize() {
         // драйвер для браузера Chrome
         driver = new ChromeDriver();
-        // переход на страницу тестового приложения
-        driver.get("https://stellarburgers.nomoreparties.site/register");
         WebDriverManager.chromedriver().setup();
-
         objHomePage = new HomePage(driver);
         objLoginPage = new LoginPage(driver);
     }
@@ -42,6 +38,7 @@ public class TestLogin {
         login();
         checkAutorization();
     }
+
     @Test
     @DisplayName("вход через кнопку «Личный кабинет»")
     public void enterLkHomePage() {
@@ -51,7 +48,8 @@ public class TestLogin {
         login();
         checkAutorization();
     }
-        @Test
+
+    @Test
     @DisplayName("вход через кнопку в форме восстановления пароля")
     public void enterForgotPasswordPage() {
         driver.get(ForgotPasswordPageLink);
@@ -76,7 +74,7 @@ public class TestLogin {
 
     @Step("Заполнение данных для входа - авторизации")
     public void login() {
-        objLoginPage.autorization(objLoginPage,email,password);
+        objLoginPage.autorization(objLoginPage, email, password);
     }
 
     @Step("Проверка успешной авторизации")
